@@ -7,6 +7,7 @@ import Update from "../basicFunctions/update.js";
 const select = {
 	id: true,
 	title: true,
+	description: true,
 };
 
 export default class SectionController {
