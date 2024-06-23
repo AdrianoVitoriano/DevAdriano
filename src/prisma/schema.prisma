@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id       String   @id @default(cuid())
+  email    String   @unique
+  firstName     String
+  lastName     String
+  password String
+  posts    Posts[]
+  comments Comments[]
+}
+model Posts {
+  id        Int      @id @default(autoincrement()) @unique
+  title     String
+  content   String
+  published Boolean?  @default(false)
+  image     String?
+  authorId  String
+  author    Users     @relation(fields: [authorId], references: [id])
+  sectionId Int 
+  section   Sections  @relation(fields: [sectionId], references: [id])
+  comments  Comments[]
+}
+model Comments {
+  id        Int      @id @default(autoincrement()) @unique
+  content   String
+  postId    Int
+  authorId  String
+  author    Users     @relation(fields: [authorId], references: [id])
+  deleted   Boolean? @default(false)
+  post      Posts   @relation(fields: [postId], references: [id])
+}
+model Sections{
+  id        Int      @id @default(autoincrement()) @unique
+  title      String
+  description String
+  active     Boolean? @default(true)
+  selectionCategories SectionsCategories[]
+  posts     Posts[]
+}
+model SectionsCategories {
+  id        Int      @id @default(autoincrement()) @unique
+  sectionId Int
+  categoryId Int
+  section   Sections @relation(fields: [sectionId], references: [id])
+  category  Categories @relation(fields: [categoryId], references: [id])
+}
+model Categories{
+  id        Int      @id @default(autoincrement()) @unique
+  title      String
+  active     Boolean? @default(true)
+  selectionCategories SectionsCategories[]
+}

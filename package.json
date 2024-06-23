@@ -1,0 +1,28 @@
+{
+	"name": "api-portifolio",
+	"version": "1.0.0",
+	"description": "Api que irá ser consumida pelo front-end do portfolio",
+	"main": "/src/app.js",
+	"type": "module",
+	"scripts": {
+		"test": "vitest --ui --api 1337",
+		"test:dev": "vitest --ui --api 1337 --include $FOLDER_PATH/**/*.{test,spec}.{js,ts,jsx,tsx}",
+		"test:debug": "vitest --ui --api 1337 --include $FOLDER_PATH/**/*.{test,spec}.{js,ts,jsx,tsx} --debug",
+		"dev": "npx nodemon ./src/app.js"
+	},
+	"author": "Adriano Vitoriano da Silva",
+	"license": "ISC",
+	"dependencies": {
+		"@prisma/client": "^5.15.1",
+		"@vitest/ui": "^1.6.0",
+		"axios": "^1.7.2",
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"express-validator": "^7.1.0",
+		"vite": "^5.3.1"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.3"
+	}
+}
